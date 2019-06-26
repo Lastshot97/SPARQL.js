@@ -383,6 +383,7 @@ PN_LOCAL_ESC          "\\"("_"|"~"|"."|"-"|"!"|"$"|"&"|"'"|"("|")"|"*"|"+"|","|"
 "REGEX"                  return 'REGEX'
 "SUBSTR"                 return 'SUBSTR'
 "REPLACE"                return 'REPLACE'
+"GETPATH"                return 'GETPATH'
 "EXISTS"                 return 'EXISTS'
 "COUNT"                  return 'COUNT'
 "SUM"|"MIN"|"MAX"|"AVG"|"SAMPLE" return 'FUNC_AGGREGATE'
@@ -792,7 +793,7 @@ BuiltInCall
     | FUNC_ARITY1 '(' Expression ')' -> operation(lowercase($1), [$3])
     | FUNC_ARITY2 '(' Expression ',' Expression ')' -> operation(lowercase($1), [$3, $5])
     | 'IF' '(' Expression ',' Expression ',' Expression ')' -> operation(lowercase($1), [$3, $5, $7])
-    | ( 'CONCAT' | 'COALESCE' | 'SUBSTR' | 'REGEX' | 'REPLACE' ) ExpressionList -> operation(lowercase($1), $2)
+    | ( 'CONCAT' | 'COALESCE' | 'SUBSTR' | 'REGEX' | 'REPLACE' | 'GETPATH' ) ExpressionList -> operation(lowercase($1), $2)
     | 'BOUND' '(' VAR ')' -> operation('bound', [toVar($3)])
     | 'BNODE' NIL -> operation($1, [])
     | 'BNODE' '(' Expression ')' -> operation($1, [$3])
